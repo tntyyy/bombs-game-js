@@ -38,6 +38,7 @@ function game() {
         }
         else {
             balance -= +bidInput.value;
+            localStorage.setItem("currBalance" , balance);
             currentBalance.textContent = `Ваш баланс: ${balance} монет`;
             bidInput.classList.remove('inp-error');
             gameStatus.textContent = 'Игра началась!';
@@ -47,21 +48,45 @@ function game() {
 
     function startGame() {
         let o = generateRandomNum();
+        let indKeff = 0;
 
-        gameFields.forEach(el => {
-            el.addEventListener('click', () => {
-                if (+el.textContent == o[1] || +el.textContent == o[2] || +el.textContent == o[3] || +el.textContent == o[4] || +el.textContent == o[5]) {
-                    el.classList.add('red');
-                    stopGame();
-                } else {
+        let getWin = false;
 
-                    el.classList.add('green');
-                    currentWinMonet += +bidInput.value;
-                    currentWin.textContent = `Выигрыш: ${currentWinMonet} монет`;
-                    // увеличение
-                }
+
+        try {
+            gameFields.forEach((el, vvv) => {
+                el.addEventListener('click', () => {
+                    getWinBtn.addEventListener('click', () => {
+                        getWin = true;
+                    });
+                    if (+el.textContent == o[1] || +el.textContent == o[2] || +el.textContent == o[3] || +el.textContent == o[4] || +el.textContent == o[5]) {
+                        if (!getWin) {
+                            el.classList.add('red');
+                            stopGame();
+                        } else {
+                            location.reload();
+                        }
+                    } else if (getWin == true) {
+                        balance += currentWinMonet;
+                        location.reload();
+                        localStorage.setItem("currBalance" , balance);
+                        resetGameFunc();
+                    } else {
+                        if (!getWin){
+                            currentWinMonet += Math.floor(+bidInput.value * kfc[indKeff]);
+                            indKeff++;
+                            el.classList.add('green');
+                            currentWin.textContent = `Выигрыш: ${currentWinMonet} монет`;
+                            console.log(currentWinMonet);
+                        } else {
+                            location.reload();
+                        }
+                    }
+                });
             });
-        });
+        } catch (e) {
+            location.reload();
+        }
 
     }
 
@@ -97,7 +122,7 @@ function stopGame() {
     endGame.classList.remove('hide');
 }
 
-resetGame.addEventListener('click', () => {
+function resetGameFunc() {
     location.reload();
     endGame.classList.add('hide');
     bidInput.value = '';
@@ -105,4 +130,8 @@ resetGame.addEventListener('click', () => {
         el.classList.remove('red');
         el.classList.remove('green');
     });
+}
+
+resetGame.addEventListener('click', () => {
+    resetGameFunc();
 });
