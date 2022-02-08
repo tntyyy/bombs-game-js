@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="end hide">
+        Игра окончена
+        <button class="reset-game">Играть еще</button>
+    </div>
+
+    <main class="main">
+        <h1 class="status">Нажмите на кнопку чтобы играть</h1>
+        <div class="container">
+            <div class="gamefield">
+                <div class="gamefield__item">1</div>
+                <div class="gamefield__item">2</div>
+                <div class="gamefield__item">3</div>
+                <div class="gamefield__item">4</div>
+                <div class="gamefield__item">5</div>
+                <div class="gamefield__item">6</div>
+                <div class="gamefield__item">7</div>
+                <div class="gamefield__item">8</div>
+                <div class="gamefield__item">9</div>
+                <div class="gamefield__item">10</div>
+                <div class="gamefield__item">11</div>
+                <div class="gamefield__item">12</div>
+                <div class="gamefield__item">13</div>
+                <div class="gamefield__item">14</div>
+                <div class="gamefield__item">15</div>
+                <div class="gamefield__item">16</div>
+                <div class="gamefield__item">17</div>
+                <div class="gamefield__item">18</div>
+                <div class="gamefield__item">19</div>
+                <div class="gamefield__item">20</div>
+                <div class="gamefield__item">21</div>
+                <div class="gamefield__item">22</div>
+                <div class="gamefield__item">23</div>
+                <div class="gamefield__item">24</div>
+                <div class="gamefield__item">25</div>
+            </div>
+            <div class="gamebid">
+                <div class="balance">
+                    <div class="current-balance">Ваш баланс: 1000 монет</div>
+                    <div class="minbid">Минимальная ставка - 10 монет</div>
+                    <input type="text" onkeyup="this.value = this.value.replace(/[^\d]/g,'');" class="bid-input" placeholder="Введите ставку">
+                    <button class="game-start">Начать</button>
+                </div>
+                <div class="win">
+                    <div class="current-win">Выигрыш: 0 монет</div>
+                    <button class="get-win">Забрать</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>
