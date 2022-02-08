@@ -59,7 +59,8 @@ function game() {
         });
 
         gameFields.forEach(el => {
-                el.addEventListener('click', () => {
+            el.addEventListener('click', () => {
+                if (!el.classList.contains('green')) {
                     if (+el.textContent == o[1] || +el.textContent == o[2] || +el.textContent == o[3] || +el.textContent == o[4] || +el.textContent == o[5]) {
                         el.classList.add('red');
                         stopGame();
@@ -69,7 +70,7 @@ function game() {
                         el.classList.add('green');
                         currentWin.textContent = `Выигрыш: ${currentWinMonet} монет`;
                     }
-
+                }
             });
         });
     }

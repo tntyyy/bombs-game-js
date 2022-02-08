@@ -198,3 +198,14 @@ button {
 .red {
     background: red;
 }
+
+button {
+    box-sizing: border-box;
+    border: 2px solid #fff;
+}
+
+button:hover {
+    background: #fff;
+    border: 2px solid #3B82F6;
+    color: #3B82F6;
+}
