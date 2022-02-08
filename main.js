@@ -50,44 +50,28 @@ function game() {
         let o = generateRandomNum();
         let indKeff = 0;
 
-        let getWin = false;
 
-
-        try {
-            gameFields.forEach((el, vvv) => {
-                el.addEventListener('click', () => {
-                    getWinBtn.addEventListener('click', () => {
-                        getWin = true;
-                    });
-                    if (+el.textContent == o[1] || +el.textContent == o[2] || +el.textContent == o[3] || +el.textContent == o[4] || +el.textContent == o[5]) {
-                        if (!getWin) {
-                            el.classList.add('red');
-                            stopGame();
-                        } else {
-                            location.reload();
-                        }
-                    } else if (getWin == true) {
-                        balance += currentWinMonet;
-                        location.reload();
-                        localStorage.setItem("currBalance" , balance);
-                        resetGameFunc();
-                    } else {
-                        if (!getWin){
-                            currentWinMonet += Math.floor(+bidInput.value * kfc[indKeff]);
-                            indKeff++;
-                            el.classList.add('green');
-                            currentWin.textContent = `Выигрыш: ${currentWinMonet} монет`;
-                            console.log(currentWinMonet);
-                        } else {
-                            location.reload();
-                        }
-                    }
-                });
-            });
-        } catch (e) {
+        getWinBtn.addEventListener('click', () => {
+            balance += currentWinMonet;
             location.reload();
-        }
+            localStorage.setItem("currBalance" , balance);
+            resetGame();
+        });
 
+        gameFields.forEach(el => {
+                el.addEventListener('click', () => {
+                    if (+el.textContent == o[1] || +el.textContent == o[2] || +el.textContent == o[3] || +el.textContent == o[4] || +el.textContent == o[5]) {
+                        el.classList.add('red');
+                        stopGame();
+                    } else {
+                        currentWinMonet += Math.floor(+bidInput.value * kfc[indKeff]);
+                        indKeff++;
+                        el.classList.add('green');
+                        currentWin.textContent = `Выигрыш: ${currentWinMonet} монет`;
+                    }
+
+            });
+        });
     }
 
     function generateRandomNum() {
