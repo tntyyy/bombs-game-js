@@ -1,3 +1,48 @@
+const urlRequest = "https://api.random.org/json-rpc/4/invoke";
+const apiKey = "2ed0b785-d639-4128-8ab5-101f5f726e33";
+
+function copyArr(arr1, arr2) {
+    for (let item of arr2) {
+        arr1.push(item);
+    }
+    return arr1;
+}
+
+async function sendRequest(newArr) {
+    const response = await fetch(urlRequest, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({
+            jsonrpc: "2.0",
+            method: "generateIntegers",
+            params: {
+                apiKey: apiKey,
+                n: 5,
+                min: 1,
+                max: 25,
+                replacement: false,
+                base: 10,
+                pregeneratedRandomization: null
+            },
+            id: 22490
+        })
+    });
+    const data = await response.json();
+
+    newArr = Array();
+    for (let item of data.result.random.data) {
+        newArr.push(item);
+    }
+
+    return await newArr;
+}
+
+
+
+
+
 const gameStatus = document.querySelector('.status');
 
 const gameFields = document.querySelectorAll('.gamefield__item');
@@ -84,18 +129,16 @@ function game() {
             5: 0
         };
 
-        let i = 1;
-        while (obj[1] == 0 || obj[2] == 0 || obj[3] == 0 || obj[4] == 0 || obj[5] == 0) {
-            let rand = Math.round(1 - 0.5 + Math.random() * (25 - 1 + 1));
+        let bombArr = [];
 
-            if (rand == obj[1] || rand == obj[2] || rand == obj[3] || rand == obj[4] || rand == obj[5]) {
-                continue;
+        let res = sendRequest([]);
+        res.then((result) => {
+            copyArr(bombArr, result);
+
+            for (let i = 0; i < bombArr.length; i++) {
+                obj[i+1] = bombArr[i];
             }
-            else {
-                obj[i] = rand;
-                i += 1;
-            }
-        }
+        });
 
         return obj;
     }
